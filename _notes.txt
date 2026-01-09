@@ -1,0 +1,57 @@
+To push to git (local only)
+in Terminal:
+    dotnet clean
+    dotnet build
+    git add .
+    git commit -m "message"
+
+A UNIQUE System has IP, port, and SystemName
+    For my homelab, ip:port is Unique
+    what if 2 machines with same ip:port ?
+    what if 2 machines with same SystemName?
+
+    Ping gets us IP, but that's it
+
+
+
+
+Plugins/libraries/etc needed for app to run:
+    dotnet add package NetOpnApi//does not exist.
+    Will try building my own library for all the API calls I will need
+
+
+
+
+How to Make API calls! Can copy and paste this...
+-------------------------------------------
+using (APIcall api = new APIcall())
+        {
+            // --- OPNsense Platform Example ---
+            IAuthenticator platformAuth = new platformAuthenticator(platformApiKey, platformApiSecret);
+            if (api.ConnectToPlatform(Ip, UseHttps, platformAuth))
+            {
+                try
+                {
+                    string systemStatusJson = await api.GetData("/api/core/system/status");
+                    string? SystemName = api.GetValue(systemStatusJson, "SystemName");
+                    string? version = api.GetValue(systemStatusJson, "system.firmware.version");
+                }
+                catch (Exception ex)
+                {
+                    throw; // Re-throw to propagate the error
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to connect to OPNsense.");
+            }
+    }
+-------------------------------------------
+
+
+
+
+
+
+
+~fin~
