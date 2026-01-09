@@ -1,0 +1,2 @@
+So the idea was to have a separate class for each system you will access.
+Proxmox is in the Virtuals folder, but so would ESXi, Docker, HyperV or any other system
